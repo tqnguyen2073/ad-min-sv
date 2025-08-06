@@ -5,10 +5,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
 @Entity
+@ToString
 @Table(name = "camera", schema = "camera")
 public class Camera {
 
@@ -28,13 +30,5 @@ public class Camera {
 
     public Camera(String cameraName) {
         this.cameraName = cameraName;
-    }
-
-    @Override
-    public String toString() {
-        return "Camera{" +
-                "cameraId=" + cameraId +
-                ", cameraName='" + cameraName + '\'' +
-                '}';
     }
 }
