@@ -3,11 +3,15 @@ package com.pvt.admin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.awt.*;
+import java.net.URI;
+
 @SpringBootApplication
 public class AdminApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AdminApplication.class, args);
+		System.out.println("Swagger UI: http://localhost:3636/swagger-ui/index.html");
 	}
 
 }

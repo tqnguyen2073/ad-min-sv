@@ -2,12 +2,16 @@ package com.pvt.admin.controller;
 
 import com.pvt.admin.entity.Camera;
 import com.pvt.admin.service.CameraService;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,16 +32,27 @@ public class CameraController {
     }
 
     // GET /api/cameras/{id}
+    @Operation(
+            summary = "Get camera by ID",
+            description = "Retrieve a camera by its unique ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Camera not found")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Camera> getCameraById(@PathVariable Long id) {
         Optional<Camera> camera = cameraService.getCameraById(id);
         return camera.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+    @Operation(summary = "Get camera by name", description = "Search for a camera by its name")
+    @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "Invalid name supplied"),
+            @ApiResponse(responseCode = "404", description = "Camera not found")
+    })
     // GET /api/cameras/search?name={name}
     @GetMapping("/search")
-    public ResponseEntity<Camera> getCameraByName(@RequestParam String name) {
+    public ResponseEntity<Camera> getCameraByName(@Parameter(description = "Name of the came to search") @RequestParam String name) {
         Optional<Camera> camera = cameraService.getCameraByName(name);
         return camera.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
