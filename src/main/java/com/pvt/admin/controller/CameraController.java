@@ -3,6 +3,7 @@ package com.pvt.admin.controller;
 import com.pvt.admin.entity.Camera;
 import com.pvt.admin.service.CameraService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cameras")
-@CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class CameraController {
 
     @Autowired

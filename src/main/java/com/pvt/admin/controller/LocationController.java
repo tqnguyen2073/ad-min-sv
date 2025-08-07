@@ -3,6 +3,7 @@ package com.pvt.admin.controller;
 import com.pvt.admin.entity.Location;
 import com.pvt.admin.service.LocationService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/locations")
-@CrossOrigin(origins = "*")
+@RequiredArgsConstructor
+// The @RequiredArgsConstructor annotation is used to generate a constructor with required arguments.
 public class LocationController {
     @Autowired
     private LocationService locationService;
