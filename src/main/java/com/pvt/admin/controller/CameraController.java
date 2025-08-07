@@ -52,12 +52,17 @@ public class CameraController {
     })
     // GET /api/cameras/search?name={name}
     @GetMapping("/search")
-    public ResponseEntity<Camera> getCameraByName(@Parameter(description = "Name of the came to search") @RequestParam String name) {
+    public ResponseEntity<Camera> getCameraByName(@Parameter(description = "Name of the came to search", example = "Camera 1") @RequestParam String name) {
         Optional<Camera> camera = cameraService.getCameraByName(name);
         return camera.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Search cameras by keyword", description = "Search for cameras using a keyword in their name or description")
+    @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "Invalid keyword supplied"),
+            @ApiResponse(responseCode = "404", description = "No cameras found matching the keyword")
+    })
     // GET /api/cameras/search?keyword={keyword}
     @GetMapping("/search-keyword")
     public ResponseEntity<List<Camera>> searchCameras(@RequestParam String keyword) {
@@ -66,6 +71,11 @@ public class CameraController {
     }
 
     // POST /api/cameras
+    @Operation(summary = "Create a new camera", description = "Add a new camera to the system")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Camera created successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid camera data supplied")
+    })
     @PostMapping
     public ResponseEntity<Camera> createCamera(@Valid @RequestBody Camera camera) {
         Camera savedCamera = cameraService.createCamera(camera);
@@ -73,6 +83,12 @@ public class CameraController {
     }
 
     // PUT /api/cameras/{id}
+    @Operation(summary = "Update an existing camera", description = "Update the details of an existing camera")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Camera updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid camera data supplied"),
+            @ApiResponse(responseCode = "404", description = "Camera not found")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<Camera> updateCamera(@PathVariable Long id,
                                                @Valid @RequestBody Camera cameraDetails) {
@@ -85,6 +101,11 @@ public class CameraController {
     }
 
     // DELETE /api/cameras/{id}
+    @Operation(summary = "Delete a camera", description = "Remove a camera from the system by its ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Camera deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Camera not found")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCamera(@PathVariable Long id) {
         try {
