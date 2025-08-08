@@ -17,7 +17,6 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "location_id")
-    @Schema (description = "Unique identifier for the location", example = "1")
     private Long locationId;
 
     @NotBlank(message = "Location name is required")
@@ -29,7 +28,7 @@ public class Location {
     @NotBlank(message = "IP address is required")
     @Size(max = 50, message = "IP address must not exceed 50 characters")
     @Column(name = "ipaddress", nullable = false)
-    @Schema(description = "IP address of the location")
+    @Schema(description = "IP address of the location", example = "192.168.1.13")
     private String ipaddress;
 
     public Location() {}

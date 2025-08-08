@@ -25,6 +25,13 @@ public class CameraController {
     private CameraService cameraService;
 
     // GET /api/cameras
+    @Operation(
+            summary = "Get all cameras",
+            description = "Retrieve a list of all cameras in the system")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Cameras retrieved successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping
     public ResponseEntity<List<Camera>> getAllCameras() {
         List<Camera> cameras = cameraService.getAllCameras();
