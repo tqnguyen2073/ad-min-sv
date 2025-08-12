@@ -11,7 +11,7 @@ public class AdminApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AdminApplication.class, args);
-		System.out.println("Swagger UI: http://localhost:3636/swagger-ui/index.html");
+		System.out.println("Swagger UI: https://localhost:3636/swagger-ui/index.html");
 	}
 
 }
